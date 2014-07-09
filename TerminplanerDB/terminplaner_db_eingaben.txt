@@ -1,0 +1,62 @@
+create table users
+(
+unr integer NOT NULL AUTO_INCREMENT,
+vorname char(20),
+nachname char(20),
+ort char(20),
+straﬂe char(20),
+hausnummer dec(4),
+plz dec(5),
+Nickname char(20),
+pw char(20),
+primary key (unr)
+)
+
+create table termine
+(
+tnr integer NOT NULL AUTO_INCREMENT,
+unr int(11),
+betreff char(255),
+inhalt char(255),
+jahr dec(4),
+monat dec(2),
+tag dec(2),
+primary key (tnr)
+)
+
+INSERT INTO users (vorname,nachname,ort,straﬂe,hausnummer,plz,Nickname,pw)
+values ('Alex','Arent','Cochem','L‰rchenstrasse',31,56812,'Alex','Alex')
+
+INSERT INTO termine (unr,betreff,inhalt,jahr,monat,tag)
+values (1,'test betreff2','Cochem',2014,7,1)
+
+
+---------------------------Abfrage zur user tabelle--------------------------
+SELECT unr,vorname,nachname,ort,straﬂe,hausnummer,plz,Nickname,pw from users where (Nickname = "Alex" and pw = "Alex")
+
+
+---------------------------Abfrage zur user tabelle zum Nickname--------------------------
+SELECT Nickname from users where (Nickname = "Alex" and pw = "Alex")
+
+
+---------------------------Abfrage zur termine tabelle zum z‰hlen--------------------------
+SELECT count(*) from termine where (unr = "'.$unr.'" and monat = "'.$monat.'" and jahr = "'.$jahr.'" and tag = "'.$tag.'")
+
+
+---------------------------Abfrage zur termine tabelle--------------------------
+SELECT unr,jahr,monat,tag from termine where (unr = "'.$unr.'" and monat = "'.$monat.'" and jahr = "'.$jahr.'" and tag = "'.$tag.'")
+
+
+---------------------------Abfrage zur termine tabelle Sortiert --------------------------
+
+SELECT * from termine where 1 ORDER BY jahr ASC, monat ASC, tag ASC
+
+--------------------------- Benutzerprofil ‰ndern--------------------------
+
+mysql_query("UPDATE users SET vorname = '".$vorn."', nachname = '".$nachn."', ort = '".$ort."', straﬂe = '".$str."', hausnummer = '".$hausnr."', plz = '".$plz."' WHERE unr = '".$unr."'");
+
+
+--------------------------- Benutzer entfernen --------------------------
+
+mysql_query("DELETE FROM users WHERE unr = '".$unr."'");
+mysql_query("DELETE FROM termine WHERE unr = '".$unr."'");
